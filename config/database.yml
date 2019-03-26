@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  pool: 5
+  timeout: 5000
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
+
+
+development:
+  <<: *default
+  database: ukraine_mogul_team_development
+
+test:
+  <<: *default
+  database: ukraine_mogul_team_test
+
+
+production:
+  <<: *default
+  database: ukraine_mogul_team_production
