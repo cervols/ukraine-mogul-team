@@ -1,3 +1,6 @@
 Rails.application.routes.draw do
-  root "home#index"
+  get 'store/index'
+  devise_for :users, controllers: { registrations: "registrations" }
+
+  root "store#index"
 end
