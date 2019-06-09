@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get 'store/index'
+  resources :items
   devise_for :users, controllers: { registrations: "registrations" }
 
-  root "store#index"
+  root "items#index"
 end
