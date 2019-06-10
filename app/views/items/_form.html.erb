@@ -1,99 +1,50 @@
-<div class="columns">
-  <div class="column is-8 is-centered">
+<%= simple_form_for @item, html: { multipart: true, class: "text-center border border-light p-5" } do |f| %>
+  <%= f.error_notification %>
+  <p class="h4 mb-4">Fill in the fields</p>
 
-    <%= simple_form_for @item, html: { multipart: true } do |f| %>
-      <%= f.error_notification %>
-
-      <div class="columns">
-
-      <div class="field column is-9">
-        <div class="control">
-          <%= f.input :title, required: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label "} %>
-        </div>
-      </div>
-
-      <div class="field column">
-        <div class="control">
-          <%= f.input :price, required: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label "} %>
-        </div>
-      </div>
-
+  <div class="form-row mb-4">
+    <div class="col">
+        <%= f.input :title, required: true, input_html: { class: "form-control" }, placeholder: "Title", wrapper: false, label_html: { class: "label "} %>
     </div>
 
-    <div class="field">
-      <div class="control">
-          <%= f.input :description, required: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label "} %>
-      </div>
+    <div class="col">
+        <%= f.input :price, required: true, input_html: { class: "form-control" }, placeholder: "Price", wrapper: false, label_html: { class: "label "} %>
     </div>
-
-        <div class="columns">
-          <div class="field column is-4">
-            <div class="control">
-              <label class="label">Brand</label>
-              <div class="control has-icons-left">
-                <span class="select">
-                  <%= f.input_field :brand, collection: Item::BRAND, prompt: "Select brand" %>
-                </span>
-                <span class="icon is-small is-left">
-                  <i class="fa fa-tag"></i>
-                </span>
-              </div>
-            </div>
-           </div>
-
-          <div class="field column is-4">
-            <div class="control">
-              <label class="label">Finish</label>
-              <div class="control has-icons-left">
-                <span class="select">
-                  <%= f.input_field :color, collection: Item::COLOR, prompt: "Select color" %>
-                </span>
-                <span class="icon is-small is-left">
-                  <i class="fa fa-paint-brush"></i>
-                </span>
-              </div>
-            </div>
-           </div>
-
-          <div class="field column is-4">
-            <div class="control">
-              <label class="label">Condition</label>
-              <div class="control has-icons-left">
-                <span class="select">
-                  <%= f.input_field :condition, collection: Item::CONDITION, prompt: "Select condition" %>
-                </span>
-                <span class="icon is-small is-left">
-                  <i class="fa fa-paint-brush"></i>
-                </span>
-              </div>
-            </div>
-           </div>
-        </div>
-
-        <div class="field">
-          <div class="control">
-            <label class="label">Add images</label>
-              <div class="file">
-              <label class="file-label">
-                <%= f.input :image, as: :file, input_html: { class:"file-input item-image" }, label: false, wrapper: false %>
-                  <span class="file-cta">
-                    <span class="file-icon"><i class="fa fa-upload"></i></span>
-                    <span class="file-label">Choose a file…</span>
-                  </span>
-              </label>
-              </div>
-            </div>
-          </div>
-          <output id="list"></output>
-        <hr />
-
-        <div class="field is-grouped">
-          <div class="control">
-            <%= f.button :submit, class: 'button is-warning' %>
-            <%= link_to 'Cancel', items_path, class:'button is-light' %>
-          </div>
-        </div>
-        
-    <% end %>
   </div>
-</div>
+
+  <div class="form-group">
+    <%= f.input :description, as: :text, required: true, input_html: { class: "form-control", rows: 5 }, placeholder: "Description", wrapper: false, label_html: { class: "label "} %>
+  </div>
+
+  <div class="form-row">
+    <div class="col">
+      <%= f.input :brand, collection: Item::BRAND, input_html: { class: "browser-default custom-select mb-4" }, prompt: "Select brand" %>
+    </div>
+
+    <div class="col">
+      <%= f.input :color, collection: Item::COLOR, input_html: { class: "browser-default custom-select mb-4" }, prompt: "Select color" %>
+    </div>
+
+    <div class="col">
+      <%= f.input :condition, collection: Item::CONDITION, input_html: { class: "browser-default custom-select mb-4" }, prompt: "Select condition" %>
+    </div>
+  </div>
+
+  <span>Add image</span>
+  <div class="custom-file">
+    <%= f.input :image, as: :file, required: true, input_html: { class: "custom-file-input" }, label: false, wrapper: false %>      
+    <label class="custom-file-label">Choose image file...</label>
+  </div>
+
+  <hr />
+
+  <div class="form-row">
+    <div class="col">
+      <%= f.button :submit, class: "btn btn-info btn-block" %>
+    </div>
+     <div class="col">
+      <%= link_to 'Cancel', items_path, class: "btn btn-warning btn-block" %>
+    </div>
+  </div>
+    
+<% end %>

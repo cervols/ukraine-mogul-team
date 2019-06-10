@@ -14,4 +14,54 @@
  *= require_self
  */
 
+$link-color: #444;
+$link-hover-color: #222;
+
 @import "bootstrap";
+
+.item-index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+
+  .item {
+    position: relative;
+    min-height: 375px;
+        border: 1px solid #dddddd;
+
+    .title {
+      line-height: 1.6rem;
+    }
+
+    .price {
+      position: absolute;
+      bottom: 5px;
+      right: 10px;
+      font-size: 1.5rem;
+    }
+  }
+
+  .item-thumb {
+    position: relative;
+    max-height: 150px;
+    overflow: hidden;
+
+    img {
+      max-width: 100%;
+      width: 100%;
+      &:hover {
+        opacity: .9;
+      }
+    }
+
+    .condition {
+      position: absolute;
+      bottom: 10px;
+      right: 9px;
+    }
+  }
+}
+
+.notification {
+  position: absolute;
+  top: 80px;
+}

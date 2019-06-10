@@ -1,15 +1,11 @@
 <% content_for :header do %>
-<section class="hero is-warning">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        Editing Item
-      </h1>
-    </div>
+<section class="hero">
+  <div class="container">
+    <h1 class="title">
+      Editing Item
+    </h1>
   </div>
 </section>
 <% end %>
 
-<div class="pv4">
-  <%= render 'form', item: @item %>
-</div>
+<%= render 'form', item: @item %>
