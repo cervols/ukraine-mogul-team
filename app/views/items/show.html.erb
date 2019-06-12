@@ -55,4 +55,8 @@
       </div>
     </div>
   </div>
+
+  <% if item_author(@item) %>
+    <%= link_to "Edit", edit_item_path(@item), class: "btn btn-warning" %>
+  <% end %>
 </section>

@@ -6,8 +6,8 @@ class Item < ApplicationRecord
 
 	belongs_to :user
 
-	validates :title, :brand, :price, presence: true
+	validates :title, :brand, :price, :image, presence: true
 	validates :description, length: { maximum: 1000, too_long: "only %{count} characters are allowed" }
 	validates :title, length: { maximum: 120, too_long: "only %{count} characters are allowed" }
-	validates :price, numericality: { only_integer: true }
+	validates :price, numericality: { greater_than: 0 }
 end
