@@ -5,6 +5,7 @@ class Item < ApplicationRecord
 	CONDITION = %w{ New Excellent Good Fair Poor }
 
 	belongs_to :user
+	has_many :positions
 
 	validates :title, :brand, :price, :image, presence: true
 	validates :description, length: { maximum: 1000, too_long: "only %{count} characters are allowed" }

@@ -1,5 +1,8 @@
 class PositionsController < ApplicationController
+  include CurrentCart
+
   before_action :set_position, only: [:show, :edit, :update, :destroy]
+  before_action :set_cart, only: [:create]
 
   # GET /positions
   # GET /positions.json
@@ -24,11 +27,12 @@ class PositionsController < ApplicationController
   # POST /positions
   # POST /positions.json
   def create
-    @position = Position.new(position_params)
+    item = Item.find(params[:item_id])
+    @position = @cart.add_item(position_params)
 
     respond_to do |format|
       if @position.save
-        format.html { redirect_to @position, notice: 'Position was successfully created.' }
+        format.html { redirect_to @position.cart, notice: "Item has been added to the cart" }
         format.json { render :show, status: :created, location: @position }
       else
         format.html { render :new }
