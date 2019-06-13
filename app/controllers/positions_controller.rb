@@ -1,78 +1,67 @@
 class PositionsController < ApplicationController
   include CurrentCart
 
-  before_action :set_position, only: [:show, :edit, :update, :destroy]
   before_action :set_cart, only: [:create]
 
-  # GET /positions
-  # GET /positions.json
   def index
     @positions = Position.all
   end
 
-  # GET /positions/1
-  # GET /positions/1.json
   def show
+    @position = resource
   end
 
-  # GET /positions/new
   def new
     @position = Position.new
   end
 
-  # GET /positions/1/edit
   def edit
+    @position = resource
   end
 
-  # POST /positions
-  # POST /positions.json
   def create
     item = Item.find(params[:item_id])
-    @position = @cart.add_item(position_params)
+    @position = @cart.add_item(item)
 
-    respond_to do |format|
-      if @position.save
-        format.html { redirect_to @position.cart, notice: "Item has been added to the cart" }
-        format.json { render :show, status: :created, location: @position }
-      else
-        format.html { render :new }
-        format.json { render json: @position.errors, status: :unprocessable_entity }
-      end
+    if @position.save
+      flash[:notice] = "Item has been added to the cart"
+      redirect_to @position.cart
+    else
+      render :new
     end
   end
 
-  # PATCH/PUT /positions/1
-  # PATCH/PUT /positions/1.json
   def update
-    respond_to do |format|
-      if @position.update(position_params)
-        format.html { redirect_to @position, notice: 'Position was successfully updated.' }
-        format.json { render :show, status: :ok, location: @position }
-      else
-        format.html { render :edit }
-        format.json { render json: @position.errors, status: :unprocessable_entity }
-      end
+    @position = resource
+
+    if @position.update(permitted_params)
+      flash[:notice] = "successfully updated"
+      redirect_to @position
+    else
+      render_edit
     end
   end
 
-  # DELETE /positions/1
-  # DELETE /positions/1.json
   def destroy
-    @position.destroy
-    respond_to do |format|
-      format.html { redirect_to positions_url, notice: 'Position was successfully destroyed.' }
-      format.json { head :no_content }
+    @position = resource
+
+    @cart = Cart.find(session[:cart_id])
+
+    if @position.destroy
+      flash[:notice] = "successfully deleted"
+      redirect_to cart_path(@cart)
+    else
+      flash[:notice] = "cannot be deleted"
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_position
-      @position = Position.find(params[:id])
+
+    def resource
+      Position.find_by(id: params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def position_params
-      params.require(:position).permit(:item_id, :cart_id)
+    def permitted_params
+      params.require(:position).permit(:item_id)
     end
 end

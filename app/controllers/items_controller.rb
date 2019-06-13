@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-  	@item = resource
+    @item = resource
   end
 
   def new
@@ -14,7 +14,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-  	@item = resource
+    @item = resource
   end
 
   def create
@@ -24,23 +24,23 @@ class ItemsController < ApplicationController
       flash[:notice] = "successfully created"
       redirect_to @item
     else
-    	render :new
+      render :new
     end
   end
 
   def update
-  	@item = resource
+    @item = resource
 
     if @item.update(permitted_params)
-    	flash[:notice] = "successfully updated"
-    	redirect_to @item
+      flash[:notice] = "successfully updated"
+      redirect_to @item
     else
-    	render :edit
+      render :edit
     end
   end
 
   def destroy
-  	@item = resource
+    @item = resource
 
     if @item.destroy
       flash[:notice] = "successfully deleted"
