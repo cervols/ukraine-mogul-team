@@ -1,19 +1,7 @@
 class CartsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
-  def index
-    @carts = Cart.all
-  end
-
   def show
-    @cart = resource
-  end
-
-  def new
-    @cart = Cart.new
-  end
-
-  def edit
     @cart = resource
   end
 
@@ -50,8 +38,9 @@ class CartsController < ApplicationController
 
     @cart.destroy if @cart.id == session[:cart_id]
     session[:cart_id] = nil
+
     respond_to do |format|
-      format.html { redirect_to carts_url, notice: 'Cart was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Cart was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -66,6 +55,7 @@ class CartsController < ApplicationController
     end
 
     def invalid_cart
+      # logger.error "Attempt to access invalid cart #{params[:id]}"
       redirect_to root_path, notice: "That cart doesn't exist"
     end
 end

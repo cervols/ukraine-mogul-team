@@ -25,6 +25,7 @@ gem "jbuilder", "~> 2.5"
 gem "bootsnap", ">= 1.1.0", require: false
 gem "bootstrap"
 gem "carrierwave"
+gem "font-awesome-rails"
 gem "haml"
 gem "mini_magick"
 gem "pg"

@@ -1,4 +1,18 @@
-<p id="notice"><%= notice %></p>
+<div class="mt-5 text-right">
+  <%= link_to "Keep Shopping", items_path, class: 'btn btn-warning' %>
+</div>
+<hr />
+<section class="section">
+  <%= render(@cart.positions) %>
 
-<%= link_to 'Edit', edit_cart_path(@cart) %> |
-<%= link_to 'Back', carts_path %>
+  <div class="row">
+    <div class="col">
+      <%= button_to "Empty Cart", @cart, method: :delete, data: { confirm: "Are you sure? " }, class: "btn btn-danger" %>
+    </div>
+    <div class="col-4 text-center">
+      <h4 class="title">
+        <span class="text-muted small">Total:</span> <%= number_to_currency(@cart.total_price) %>
+      </h4>
+    </div>
+  </div>
+</section>
